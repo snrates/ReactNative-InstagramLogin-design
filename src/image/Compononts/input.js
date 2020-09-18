@@ -1,15 +1,20 @@
 import React from 'react';
-import {TextInput} from 'react-native';
+import {TextInput, Dimensions} from 'react-native';
+
+const {width , height}= Dimensions.get('window')
 
 const Input = (props) => (
     
     <TextInput
         placeholder= {props.placeholder}
         secureTextEntry={props.secureTextEntry}
+        keyboardType= {props.keyboardType}
     
-        style={[{ width:340,height: 60, borderRadius: 8, 
-            backgroundColor:'#e3dfde',borderColor: 'gray',padding: 10,marginBottom: 15,
-            borderWidth: 0.8 }, props.style]}
+        style={[{ 
+            width: width*0.92, height: height*0.08, borderRadius: 8 , 
+            backgroundColor:'#e3dfde',borderColor: 'gray',
+            padding: 10,marginBottom: height*0.02,
+            borderWidth: 0.8 } , props.style]}
     />
     
 );
