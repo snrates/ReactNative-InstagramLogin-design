@@ -5,14 +5,12 @@ const {width , height}= Dimensions.get('window')
 const Click = (props) =>  (
     <TouchableOpacity
 
-         onPress={ ()  =>{
-
-         }}
+         activeOpacity= {0.5}
+         onPress={props.onPress}
          style={{
              alignItems: "center" ,
            justifyContent: "center",
            backgroundColor: "blue",
-           
            width: width*0.9 , 
            height:height*0.08, 
            borderRadius: 15,

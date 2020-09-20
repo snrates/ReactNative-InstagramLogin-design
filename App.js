@@ -1,22 +1,44 @@
 
 import React ,{Component} from 'react';
-import {View,Text,Image,SafeAreaView, Dimensions,  TouchableOpacity} from 'react-native';
-import Click from './src/image/Compononts/Button';
-import Input from './src/image/Compononts/input';
+import {View,Text,Image,SafeAreaView, Dimensions,  TouchableOpacity, ScrollView} from 'react-native';
+import Click from './src/Compononts/Button';
+import Check from './src/Compononts/checkBox';
+import Input from './src/Compononts/input';
 
 const {width, height}= Dimensions.get('window')
 
 export default class App extends Component {
-  
-  render() {
-     
-    return(
 
-      <SafeAreaView 
-      style={{ 
-        flex: 1
-      }}
-      >
+  state={
+    username: '',
+    password: '',
+    isShowPassword: false
+  }
+
+  /*shouldComponentUpdate(nextProps,nextStade){
+    if(this.state.username != nextStade.username){
+      return true
+    }
+    return false
+  }*/
+  render() {
+
+    const { 
+      
+      username,
+      
+      password,
+
+      isShowPassword
+
+    } = this.state
+
+    return(
+    
+      <SafeAreaView style={{ flex: 1}}>
+
+        <ScrollView contentContainerStyle={{flex:1}}>
+
         <View style= {[styles.container,{flex: 2}]}>
           < Image 
           source={require('./src/image/logo.png')}
@@ -28,45 +50,45 @@ export default class App extends Component {
           
           <Input 
              placeholder={' Phone number, username or e-mail'}
+             value={username}
+             onChangeText={(username) => this.setState({ username})}
              //keyboardType= {'email-address'}  
           />
 
           <Input  
              placeholder={' Password'} 
-             secureTextEntry 
+             secureTextEntry={!isShowPassword}
+             value={password}
+             onChangeText={(password) => this.setState({password})}
              //keyboardType= {'numeric'}
            />
+           
            <View style={{flexDirection: "row" , width: width*0.9}}>
-             <View style={{flexDirection: "row",marginBottom: 10}}
-             >
-               <TouchableOpacity
-                 
-                 style={{
+             
+           <Check
+              text= 'Hide Password'
+              status ={isShowPassword}
+              onPress= {()=> this.setState({isShowPassword: !isShowPassword})}
+           />
 
-                    width: 20,
-                    height: 20,
-                    backgroundColor: 'white',
-                    borderColor: 'gray',
-                    borderWidth: 1,
-                    marginRight: 10,
-                    marginLeft:10              
-                    
-                 }}
-               
-               />
+            
 
-              
-               <Text> Hide Password</Text>
-             </View>
+
              <TouchableOpacity>
 
-                <Text style= {[styles.signUp,{marginLeft:100}] }>  Forgot Password </Text>
+                <Text style= {[styles.signUp,{marginLeft:120}] }>  Forgot Password </Text>
             </TouchableOpacity>            
            </View>
            
-           <Click text= 'Login'/>
+           <Click 
+           onPress={()=>{
+            console.log('',this.state.username, '',this.state.password); 
+           }          
+          }
+           text= 'Login'
+           />
 
-           <View style={{flexDirection: 'row',marginTop:30, alignItems: 'center'}}> 
+           <View  style={{flexDirection: 'row',marginTop:30, alignItems: 'center'}}> 
               <View style={styles.line}></View>
                 
                 <Text style={{color: 'gray', fontWeight: 'bold'}}> OR </Text>
@@ -102,8 +124,9 @@ export default class App extends Component {
                           
         </View>
         
-      
+        </ScrollView>
       </SafeAreaView>
+    
     )
   }
 }
